@@ -21,19 +21,28 @@ const episodeTypeToStats: Record<string, (keyof any)[]> = {
   parody: ["Comedy", "Acting"],
   makeover: ["Design", "Runway"],
   musical: ['Acting', 'Singing', 'Dance', 'Comedy'],
+  "nonelim": ["Acting", "Comedy", "Dance", "Design", "Singing", "Runway"],
+  "non elim": ["Acting", "Comedy", "Dance", "Design", "Singing", "Runway"],
   default: ["Acting", "Comedy", "Dance", "Design", "Singing", "Runway"],
 };
 
 export function mainChallenge(
-  trackRecord: any[], 
-  episodeNumber: string | number, 
-  nonElimination: boolean = false, 
+  trackRecord: any[],
+  episodeNumber: string | number,
+  nonElimination: boolean = false,
   episodeType: string,
   seasonStyle: string
 ) {
   //const episodeNum = Number(episodeNumber);
 
   const isFinale = episodeType.toLowerCase().includes("finale");
+  const episodeTypeKeys = episodeType
+    .toLowerCase()
+    .split(",")
+    .map((key) => key.trim());
+  const isSplitPremiereNonElim = episodeTypeKeys.some(
+    (key) => key.replace(/\s+/g, "") === "nonelim"
+  );
 
   if (isFinale) {
     const activeQueens = trackRecord.filter(q => !q.isEliminated); // Only active queens
@@ -121,18 +130,39 @@ export function mainChallenge(
 
   tempScores.sort((a, b) => b.score - a.score);
 
-  const [topCount, bottomCount] = nittyGritty({ size: tempScores.length });
+  let topQueens = tempScores.slice();
+  let highQueens: typeof tempScores = [];
+  let topTwoQueens: typeof tempScores = [];
+  let bottomQueens: typeof tempScores = [];
+  let eliminatedId: string | null = null;
+  let topTwoWinnerId: string | null = null;
+  let bottomCount = 0;
 
-  const topQueens = tempScores.slice(0, topCount);
-  const bottomQueens = tempScores.slice(-bottomCount);
-  const regularBottomQueens = bottomQueens.slice(1);
+  if (isSplitPremiereNonElim) {
+    const topSlots = Math.min(4, tempScores.length);
+    topQueens = tempScores.slice(0, topSlots);
+    topTwoQueens = topQueens.slice(0, Math.min(2, topQueens.length));
+    highQueens = topQueens.slice(topTwoQueens.length, Math.min(topSlots, topTwoQueens.length + 2));
 
-  let eliminatedId = null;
-  if (!nonElimination) {
-    if (topCount == 2 && bottomCount == 2) {
-      
-      eliminatedId = lipsync(bottomQueens);
-    } else eliminatedId = lipsync(bottomQueens.slice(1));
+    if (topTwoQueens.length > 0) {
+      topTwoWinnerId = lipsyncForTheWin(topTwoQueens) || topTwoQueens[0].id;
+    }
+  } else {
+    const [topCount, bottomGroupCount] = nittyGritty({ size: tempScores.length });
+
+    topQueens = tempScores.slice(0, topCount);
+    highQueens = topQueens.slice(1);
+    bottomQueens = tempScores.slice(-bottomGroupCount);
+    bottomCount = bottomQueens.length;
+    const regularBottomQueens = bottomQueens.slice(1);
+
+    if (!nonElimination) {
+      if (topCount === 2 && bottomGroupCount === 2) {
+        eliminatedId = lipsync(bottomQueens);
+      } else {
+        eliminatedId = lipsync(regularBottomQueens);
+      }
+    }
   }
   //const = nonElimination ? null : lipsync(bottomQueens.slice(1));
 
@@ -146,31 +176,62 @@ export function mainChallenge(
   const updatedRecord = scoredRecord.map(q => {
     if (q.isEliminated) return { ...q };
 
-    let placementType: 'win' | 'high' | 'low' | 'bottom' | 'safe';
+    if (isSplitPremiereNonElim) {
+      if (topTwoQueens.some(t => t.id === q.id)) {
+        const isWinner = q.id === topTwoWinnerId;
+        const placementType = isWinner ? 'win' : 'top2';
+        if (isWinner) {
+          return {
+            ...q,
+            wins: q.wins + 1,
+            placements: [...q.placements, { episodeNumber, placement: placementType }]
+          };
+        }
 
-    if (topQueens[0]?.id === q.id) {
-      placementType = 'win';
-      return { ...q, wins: q.wins + 1, placements: [...q.placements, { episodeNumber, placement: placementType }] };
+        return {
+          ...q,
+          highs: q.highs + 1,
+          placements: [...q.placements, { episodeNumber, placement: placementType }]
+        };
+      }
+
+      if (highQueens.some(h => h.id === q.id)) {
+        return {
+          ...q,
+          highs: q.highs + 1,
+          placements: [...q.placements, { episodeNumber, placement: 'high' }]
+        };
+      }
+
+      return {
+        ...q,
+        placements: [...q.placements, { episodeNumber, placement: 'safe' }]
+      };
     }
 
-    if (topQueens.slice(1).some(t => t.id === q.id)) {
-      placementType = 'high';
-      return { ...q, highs: q.highs + 1, placements: [...q.placements, { episodeNumber, placement: placementType }] };
+    if (topQueens[0]?.id === q.id) {
+      return { ...q, wins: q.wins + 1, placements: [...q.placements, { episodeNumber, placement: 'win' }] };
+    }
+
+    if (highQueens.some(t => t.id === q.id)) {
+      return { ...q, highs: q.highs + 1, placements: [...q.placements, { episodeNumber, placement: 'high' }] };
     }
 
     if (bottomQueens[0]?.id === q.id && bottomCount > 2) {
-      placementType = 'low';
-      return { ...q, lows: q.lows + 1, placements: [...q.placements, { episodeNumber, placement: placementType }] };
+      return { ...q, lows: q.lows + 1, placements: [...q.placements, { episodeNumber, placement: 'low' }] };
     }
 
     if (bottomQueens.some(b => b.id === q.id)) {
-      placementType = 'bottom';
-      const isEliminated = q.id === eliminatedId;
-      return { ...q, bottoms: q.bottoms + 1, isEliminated, placements: [...q.placements, { episodeNumber, placement: placementType }] };
+      const isEliminatedQueen = q.id === eliminatedId;
+      return {
+        ...q,
+        bottoms: q.bottoms + 1,
+        isEliminated: isEliminatedQueen,
+        placements: [...q.placements, { episodeNumber, placement: 'bottom' }]
+      };
     }
 
-    placementType = 'safe';
-    return { ...q, placements: [...q.placements, { episodeNumber, placement: placementType }] };
+    return { ...q, placements: [...q.placements, { episodeNumber, placement: 'safe' }] };
   });
 
   return updatedRecord;
@@ -193,43 +254,56 @@ function nittyGritty({ size }: { size: number }) {
   return [3, 3]; // default
 }
 
+function calculateLipsyncScores(queens: { id: string; queen: string; wins: number; highs: number; lows: number; bottoms: number }[]) {
+  return queens.map((queen) => ({
+    queenId: queen.id,
+    name: queen.queen,
+    score:
+      Math.floor(Math.random() * 10) + 1 +
+      1 * queen.wins +
+      0.5 * queen.highs -
+      0.6 * queen.lows -
+      2 * queen.bottoms,
+  }));
+}
+
 function lipsync(bottomQueens: { id: string; queen: string; wins: number; highs: number; lows: number; bottoms: number }[]) {
+  const bottomResults = calculateLipsyncScores(bottomQueens);
 
-  const bottomResults = [];
-
-  for (let b = 0; b < bottomQueens.length; b++) {
-
-    bottomResults.push({
-      bottomId: bottomQueens[b].id,
-      name: bottomQueens[b].queen,
-      result: (Math.floor(Math.random() * 10) + 1)
-        + (1 * bottomQueens[b].wins)
-        + (.5 * bottomQueens[b].highs)
-        - (.6 * bottomQueens[b].lows)
-        - (2 * bottomQueens[b].bottoms),
-    })
-  }
-
-  //console.log(bottomResults);
-  // Handle empty array case
   if (bottomResults.length === 0) {
     return null;
   }
 
   let lowestScore = Infinity;
-  let lowestId = null;
+  let lowestId: string | null = null;
 
-  // Loop through each queen to find the one with the lowest score
   for (const q of bottomResults) {
-    if (q.result < lowestScore) {
-      lowestScore = q.result;
-      lowestId = q.bottomId;
+    if (q.score < lowestScore) {
+      lowestScore = q.score;
+      lowestId = q.queenId;
     }
   }
   return lowestId;
+}
 
-  //const eliminatedQueen = bottomQueens[Math.floor(Math.random() * bottomQueens.length)];
-  //return eliminatedQueen.id; // return ID instead of object
+function lipsyncForTheWin(topQueens: { id: string; queen: string; wins: number; highs: number; lows: number; bottoms: number }[]) {
+  const topResults = calculateLipsyncScores(topQueens);
+
+  if (topResults.length === 0) {
+    return null;
+  }
+
+  let highestScore = -Infinity;
+  let highestId: string | null = null;
+
+  for (const q of topResults) {
+    if (q.score > highestScore) {
+      highestScore = q.score;
+      highestId = q.queenId;
+    }
+  }
+
+  return highestId;
 }
 
 function getQueenBiasFromStats(queen: any): number {

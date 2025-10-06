@@ -101,6 +101,8 @@ const SeasonTrackRecordTable = ({
         return "WIN";
       case "high":
         return "HIGH";
+      case "top2":
+        return "TOP2";
       case "safe":
         return "SAFE";
       case "low":
@@ -246,6 +248,7 @@ const SeasonTrackRecordTable = ({
                           ${isAfterElim ? "text-gray-400 bg-gray-200 italic" : ""}
                           ${placement == ' ' ? "text-gray-400 bg-gray-200 italic" : ""}
                           ${placement === "HIGH" ? "bg-sky-300 text-black-200" : ""}
+                          ${placement === "TOP2" ? "bg-indigo-200 text-black" : ""}
                           ${placement === "WIN" ? "bg-blue-400 text-black-200" : ""}
                           ${placement === "LOW" ? "bg-pink-200 text-black-200" : ""}
                           ${placement === "BTM2" ? "bg-red-300 text-black-200" : ""}

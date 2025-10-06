@@ -4,6 +4,7 @@ const EVENT_LBLS: Record<string, string> = {
     announceSafe: "Safe Queens",
     winner: "Winner",
     high: "High Queens",
+    top2: "Top 2 Queens",
     bottom: "Bottom Queens",
     bottom2: "Bottom 2",
     eliminated: "Eliminated Queen",
@@ -17,7 +18,7 @@ const EpisodeMessage = ({ episodeEvent, eventMessage } : { episodeEvent: string,
     let lipsyncMessage = "";
     let afterStr = '';
     
-    if (episodeEvent === "bottom2" && eventMessage.includes("lipsync to")) {
+    if ((episodeEvent === "bottom2" || episodeEvent === "top2") && eventMessage.includes("lipsync to")) {
         const [before, after] = eventMessage.split("They will now have to lipsync to");
         mainMessage = before.trim();
         lipsyncMessage = "They will now have to lipsync to" + after;
