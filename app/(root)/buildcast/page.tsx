@@ -130,6 +130,33 @@ const Page = () => {
       .filter(Boolean) as SeasonCastSearchOption[];
   }, []);
 
+  const seasonCastOptions = useMemo<SeasonCastSearchOption[]>(() => {
+    return seasons
+      .map((season) => {
+        const castQueens = queens.filter((queen) => {
+          const seasonTokens = queen.seasons
+            ?.split(",")
+            .map((token: string) => token.trim().toLowerCase()) || [];
+          return (
+            seasonTokens.includes(season.seasonNumber.toLowerCase()) &&
+            queen.franchise?.toLowerCase() === season.franchise.toLowerCase()
+          );
+        });
+
+        if (castQueens.length === 0) return null;
+
+        return {
+          id: `season-${season.franchise}-${season.seasonNumber}`,
+          franchise: season.franchise,
+          seasonNumber: season.seasonNumber,
+          queens: castQueens,
+          label: `${season.franchise.toUpperCase()} Season ${season.seasonNumber}`,
+          queenCount: castQueens.length,
+        };
+      })
+      .filter(Boolean) as SeasonCastSearchOption[];
+  }, []);
+
   const handleSaveToLocalStorage = () => {
     localStorage.setItem("selectedQueens", JSON.stringify(queenCards));
     localStorage.setItem("selectedEpisodes", JSON.stringify(episodeCards));
