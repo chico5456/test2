@@ -7,14 +7,25 @@ import { useSearchParams } from "next/navigation";
 import { useDebounce } from "use-debounce";
 import * as Flags from "country-flag-icons/react/3x2";
 
+type SeasonCastOption = {
+  id: string;
+  franchise: string;
+  seasonNumber: string;
+  queens: any[];
+  label: string;
+  queenCount: number;
+};
+
 type SearchProps = {
   entity: any[];
   field: string;
   onSelect?: (item: any) => void; // callback to parent
   type: string;
+  onBatchSelect?: (items: any[]) => void;
+  seasonCasts?: SeasonCastOption[];
 };
 
-const Search = ({ entity, field, onSelect, type }: SearchProps) => {
+const Search = ({ entity, field, onSelect, type, onBatchSelect, seasonCasts = [] }: SearchProps) => {
   const [query, setQuery] = useState("");
   const searchParams = useSearchParams();
   const searchQuery = searchParams.get("query") || "";
@@ -46,21 +57,48 @@ const Search = ({ entity, field, onSelect, type }: SearchProps) => {
       return;
     }
 
-    const filtered = type == 'queen' ? entity
-      .filter((en) =>
-        en[field].toLowerCase().includes(debouncedQuery.toLowerCase())
-      )
-      .sort((a, b) => a.name.localeCompare(b.name)) : entity.filter((en) =>
-        en[field].toLowerCase().includes(debouncedQuery.toLowerCase()));
+    const loweredQuery = debouncedQuery.toLowerCase();
+
+    if (type === 'queen') {
+      const filteredQueens = entity
+        .filter((en) => en[field].toLowerCase().includes(loweredQuery))
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map((queen) => ({ ...queen, __resultType: 'queen' }));
+
+      const seasonMatches = seasonCasts
+        .filter((season) => {
+          const tokens = [
+            season.seasonNumber,
+            `${season.franchise} ${season.seasonNumber}`,
+            `${season.franchise} season ${season.seasonNumber}`,
+            `season ${season.seasonNumber}`,
+          ];
+          return tokens.some((token) => token.toLowerCase().includes(loweredQuery));
+        })
+        .map((season) => ({ ...season, __resultType: 'seasonCast' }));
+
+      setResults([...seasonMatches, ...filteredQueens]);
+      setIsOpen(true);
+      return;
+    }
+
+    const filtered = entity.filter((en) =>
+      en[field].toLowerCase().includes(loweredQuery)
+    );
 
     setResults(filtered);
     setIsOpen(true);
-  }, [debouncedQuery, entity, field]);
+  }, [debouncedQuery, entity, field, seasonCasts, type]);
 
   const handleClickItem = (queen: any) => {
     setIsOpen(false);
     setResults([]);
     setQuery(""); // clear search box
+    if (queen?.__resultType === 'seasonCast') {
+      onBatchSelect?.(queen.queens);
+      return;
+    }
+
     onSelect?.(queen); // send queen to parent
   };
 
@@ -108,7 +146,7 @@ const Search = ({ entity, field, onSelect, type }: SearchProps) => {
                     className="flex items-center p-3 hover:bg-gray-50 cursor-pointer transition-colors duration-200"
                     onClick={() => handleClickItem(res)}
                   >
-                    {type === "queen" && (
+                    {type === "queen" && res.__resultType !== 'seasonCast' && (
                       <>
                         <Image
                           src={res.url || ""}
@@ -141,6 +179,24 @@ const Search = ({ entity, field, onSelect, type }: SearchProps) => {
                           ) : null;
                         })()}
                       </>
+                    )}
+                    {type === "queen" && res.__resultType === 'seasonCast' && (
+                      <div className="flex items-center justify-between w-full">
+                        <div className="flex flex-col">
+                          <span className="font-medium text-gray-700">
+                            Add {highlightMatch(`Season ${res.seasonNumber}`, debouncedQuery)} Cast ({res.queenCount})
+                          </span>
+                          <span className="text-sm text-gray-500">
+                            Franchise: {res.franchise.toUpperCase()}
+                          </span>
+                        </div>
+                        {(() => {
+                          const Flag = Flags[res.franchise as keyof typeof Flags];
+                          return Flag ? (
+                            <Flag className="w-6 h-4 ml-auto rounded-sm shadow-sm" />
+                          ) : null;
+                        })()}
+                      </div>
                     )}
                     {type === "episode" && (
                       <div className="w-full">

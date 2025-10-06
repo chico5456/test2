@@ -207,23 +207,40 @@ const SimLayout = (
       }
     };
 
-    let lipsyncTitle = '', lipsyncArtist = '';
-    if (lipsyncs[episodeNumber - 2] && lipsyncs[episodeNumber - 2]['lipsync'].season == 9) {
-      lipsyncTitle = lipsyncs[episodeNumber - 2]['lipsync'].title;
-      lipsyncArtist = lipsyncs[episodeNumber - 2]['lipsync'].artist;
-    }
-    else if (lipsyncs[episodeNumber - 1] && lipsyncs[episodeNumber - 1]['lipsync'].season != 9) {
-      lipsyncTitle = lipsyncs[episodeNumber - 1]['lipsync'].title;
-      lipsyncArtist = lipsyncs[episodeNumber - 1]['lipsync'].artist;
-    }
-    else if (episodeNumber == 1 && lipsyncs[episodeNumber]['lipsync'].season == 3) { // temp fix for season 3
-      lipsyncTitle = lipsyncs[episodeNumber - 1]['lipsync'].title;
-      lipsyncArtist = lipsyncs[episodeNumber - 1]['lipsync'].artist;
-    }
-    else if (lipsyncs[episodeNumber - 2] && lipsyncs[episodeNumber - 2]['lipsync'].season === 3) {
-      lipsyncTitle = lipsyncs[episodeNumber - 1]['lipsync'].title;
-      lipsyncArtist = lipsyncs[episodeNumber - 1]['lipsync'].artist;
-    }
+    const getLipsyncDetails = (epNumber: number) => {
+      const safeLipsyncAt = (index: number) => {
+        if (index < 0 || index >= lipsyncs.length) return null;
+        const entry = lipsyncs[index];
+        if (!entry || !entry['lipsync']) return null;
+        return entry['lipsync'];
+      };
+
+      const minusTwo = safeLipsyncAt(epNumber - 2);
+      const minusOne = safeLipsyncAt(epNumber - 1);
+      const current = safeLipsyncAt(epNumber);
+
+      if (minusTwo?.season === 9) {
+        return minusTwo;
+      }
+
+      if (minusOne && minusOne.season !== 9) {
+        return minusOne;
+      }
+
+      if (epNumber === 1 && current?.season === 3) {
+        return current;
+      }
+
+      if (minusTwo?.season === 3) {
+        return safeLipsyncAt(epNumber - 1);
+      }
+
+      return null;
+    };
+
+    const lipsyncDetails = getLipsyncDetails(episodeNumber);
+    const lipsyncTitle = lipsyncDetails?.title ?? '';
+    const lipsyncArtist = lipsyncDetails?.artist ?? '';
 
     switch (event) {
       case 'announceSafe':
