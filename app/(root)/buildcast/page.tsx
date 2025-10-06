@@ -115,7 +115,6 @@ const Page = () => {
     const savedLipsyncs = [];
     for (const e in episodeCards) {
       const eNum = episodeCards[e].franchise.toLowerCase() + episodeCards[e].season + 'e' + Number(episodeCards[e].episodeNumber);
-      console.log(eNum);
       for (const l in lipsyncs) {
         if (lipsyncs[l].episode === eNum) {
           savedLipsyncs.push({
@@ -172,16 +171,34 @@ const Page = () => {
     setIsLoading(false);
   }, []);
 
+  const autoNonElimCount = useMemo(() => {
+    return episodeCards.reduce((count, episode) => {
+      if (!episode.type) return count;
+
+      const typeTokens = episode.type
+        .toLowerCase()
+        .split(",")
+        .map((token: string) => token.trim().replace(/\s+/g, ""));
+
+      return typeTokens.includes("nonelim") ? count + 1 : count;
+    }, 0);
+  }, [episodeCards]);
+
+  const manualNonElimCount = Number(minNonElimEps) || 0;
+  const totalNonElims = manualNonElimCount + autoNonElimCount;
+
   useEffect(() => { // validate requirements
 
-    const minReqEps = queenCards.length - 2 + Number(minNonElimEps) - (Number(minFinalists) - 3);
-    const requiredEps = queenCards.length > 0 && (queenCards.length - 2 + Number(minNonElimEps) > 2) && minReqEps > 2
+    const parsedFinalists = Number(minFinalists) || 3;
+    const minReqEps = queenCards.length - 2 + totalNonElims - (parsedFinalists - 3);
+    const eliminationBudget = queenCards.length - 2 + totalNonElims;
+    const requiredEps = queenCards.length > 0 && eliminationBudget > 2 && minReqEps > 2
       ? minReqEps
       : 2;
 
     setMinEps(requiredEps);
-    setReqQueensMet(queenCards.length >= 4 && queenCards.length >= Number(minFinalists) + 1);
-    setReqEpsMet(episodeCards.length === requiredEps);
+    setReqQueensMet(queenCards.length >= 4 && queenCards.length >= parsedFinalists + 1);
+    setReqEpsMet(episodeCards.length >= requiredEps);
 
     if (episodeCards.length > 0) {
       const lastEp = episodeCards[episodeCards.length - 1];
@@ -190,7 +207,7 @@ const Page = () => {
       setFinaleSet(false);
     }
 
-  }, [queenCards, episodeCards, minNonElimEps, minFinalists]);
+  }, [queenCards, episodeCards, totalNonElims, minFinalists]);
 
   useEffect(() => { // handle resetting double shantays to default value
     if (minEps === 2 && (minNonElimEps === "1" || minNonElimEps === "2"))
@@ -649,7 +666,7 @@ const Page = () => {
 
                   {/* Label with Tooltip */}
                   <span className="font-medium flex items-center gap-1">
-                    Exactly {minEps} Episodes
+                    At least {minEps} Episodes
                     <Tooltip>
                       <TooltipTrigger asChild>
                         <button
@@ -662,7 +679,7 @@ const Page = () => {
                       <TooltipContent className="max-w-xs text-sm">
                         <p>
                           This number adjusts automatically to allow the season to flow with the number of queens you have selected,
-                          number of finalists, and any double shantays you have selected.
+                          number of finalists, your chosen double shantays, and any pre-tagged non-elimination episodes such as split premieres.
                         </p>
                       </TooltipContent>
                     </Tooltip>
@@ -670,7 +687,7 @@ const Page = () => {
                 </div>
                 <p className="text-sm text-gray-500 leading-snug">
                   To accommodate {queenCards.length < Number(minFinalists) + 1 ? (`a minimum of ${Number(minFinalists) + 1}`)
-                    : `${queenCards.length}`} queens, {minFinalists} finalists, and {minNonElimEps} double shantay(s).
+                    : `${queenCards.length}`} queens, {minFinalists} finalists, and {totalNonElims} non-elimination episode(s){autoNonElimCount > 0 ? ` (including ${autoNonElimCount} pre-tagged episode${autoNonElimCount === 1 ? "" : "s"})` : ""}.
                 </p>
               </div>
 
