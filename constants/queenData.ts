@@ -862,15 +862,7 @@ export const queens = [
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/0/06/VanessaVanjieMateoS10CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831163920',
     seasons: '10,11',
     name: 'Vanessa Vanjie Mateo',
-    franchise: 'US',
-    stats: {
-      Acting: 72,
-      Dance: 88,
-      Comedy: 74,
-      Design: 65,
-      Runway: 80,
-      Singing: 68
-    }
+    franchise: 'US'
   },
   {
     id: 't4C78lcMTQjKW0Igtxmw',
@@ -891,210 +883,98 @@ export const queens = [
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/3/3a/A%27keriaCDavenportS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831152524',
     seasons: '11,AS6',
     name: "A'keria C. Davenport",
-    franchise: 'US',
-    stats: {
-      Acting: 78,
-      Dance: 75,
-      Comedy: 70,
-      Design: 80,
-      Runway: 88,
-      Singing: 60
-    }
+    franchise: 'US'
   },
   {
     id: 'zIAD22W56nMvEP42tp39',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/4/42/ArielVersaceS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831152449',
     seasons: '11',
     name: "Ariel Versace",
-    franchise: 'US',
-    stats: {
-      Acting: 60,
-      Dance: 65,
-      Comedy: 55,
-      Design: 72,
-      Runway: 85,
-      Singing: 58
-    }
+    franchise: 'US'
   },
   {
     id: 'zIAD22WTFnMvEP4nBp39',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/7/75/BrookeLynnHytesS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831152558',
     seasons: '11',
     name: "Brooke Lynn Hytes",
-    franchise: 'US',
-    stats: {
-      Acting: 70,
-      Dance: 95,
-      Comedy: 68,
-      Design: 74,
-      Runway: 93,
-      Singing: 62
-    }
+    franchise: 'US'
   },
   {
     id: 'zISE22WTFnMvEP42tp39',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/f/f1/HoneyDavenportS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831152652',
     seasons: '11',
     name: "Honey Davenport",
-    franchise: 'US',
-    stats: {
-      Acting: 65,
-      Dance: 78,
-      Comedy: 60,
-      Design: 70,
-      Runway: 82,
-      Singing: 85
-    }
+    franchise: 'US'
   },
   {
     id: 'zISERRRTFnMvEP42tp39',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/8/8c/KahannaMontreseS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831152729',
     seasons: '11,AS8',
     name: "Kahanna Montrese",
-    franchise: 'US',
-    stats: {
-      Acting: 55,
-      Dance: 88,
-      Comedy: 52,
-      Design: 60,
-      Runway: 80,
-      Singing: 58
-    }
+    franchise: 'US'
   },
   {
     id: 'zISE22WTFnMvEP12D539',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/8/8c/MercedesImanDiamondS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831152824',
     seasons: '11',
     name: "Mercedes Iman Diamond",
-    franchise: 'US',
-    stats: {
-      Acting: 52,
-      Dance: 64,
-      Comedy: 50,
-      Design: 58,
-      Runway: 72,
-      Singing: 55
-    }
+    franchise: 'US'
   },
   {
     id: 'zISE4k0oFnMvEP42tp39',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/9/97/NinaWestS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831152853',
     seasons: '11,AS9',
     name: "Nina West",
-    franchise: 'US',
-    stats: {
-      Acting: 88,
-      Dance: 62,
-      Comedy: 90,
-      Design: 75,
-      Runway: 68,
-      Singing: 70
-    }
+    franchise: 'US'
   },
   {
     id: 'zISE22444nMvEP42tp39',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/4/44/PlastiqueTiaraS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210907152402',
     seasons: '11,AS9',
     name: "Plastique Tiara",
-    franchise: 'US',
-    stats: {
-      Acting: 66,
-      Dance: 74,
-      Comedy: 58,
-      Design: 92,
-      Runway: 95,
-      Singing: 64
-    }
+    franchise: 'US'
   },
   {
     id: '4hSS32444nMvEP42tp39',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/f/f8/Ra%27JahO%27HaraS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831153040',
     seasons: '11,AS6,CvtW1',
     name: "Ra'Jah O'Hara",
-    franchise: 'US',
-    stats: {
-      Acting: 70,
-      Dance: 84,
-      Comedy: 68,
-      Design: 88,
-      Runway: 86,
-      Singing: 66
-    }
+    franchise: 'US'
   },
   {
     id: 'zISE22444nMvEP000OO9',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/3/3b/ScarletEnvyS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831153122',
     seasons: '11,AS6,UKvtW2',
     name: "Scarlet Envy",
-    franchise: 'US',
-    stats: {
-      Acting: 82,
-      Dance: 60,
-      Comedy: 72,
-      Design: 76,
-      Runway: 89,
-      Singing: 63
-    }
+    franchise: 'US'
   },
   {
     id: 'zI3f35444nMvEP42tp39',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/d/d5/ShugaCainS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831153221',
     seasons: '11',
     name: "Shuga Cain",
-    franchise: 'US',
-    stats: {
-      Acting: 75,
-      Dance: 70,
-      Comedy: 80,
-      Design: 73,
-      Runway: 78,
-      Singing: 88
-    }
+    franchise: 'US'
   },
   {
     id: 'zIIIkl444nMvEP42tp39',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/5/5e/SilkyNutmegGanacheS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831153343',
     seasons: '11,AS6,CvtW1',
     name: "Silky Nutmeg Ganache",
-    franchise: 'US',
-    stats: {
-      Acting: 85,
-      Dance: 58,
-      Comedy: 88,
-      Design: 68,
-      Runway: 70,
-      Singing: 82
-    }
+    franchise: 'US'
   },
   {
     id: 'zI3f35444nMvEP42tp40',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/0/02/SojuS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831153424',
     seasons: '11',
     name: "Soju",
-    franchise: 'US',
-    stats: {
-      Acting: 45,
-      Dance: 42,
-      Comedy: 48,
-      Design: 50,
-      Runway: 55,
-      Singing: 52
-    }
+    franchise: 'US'
   },
   {
     id: 'zI3f3f67S3fvEP42tp39',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/3/3c/YvieOddlyS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831153546',
     seasons: '11,AW1',
     name: "Yvie Oddly",
-    franchise: 'US',
-    stats: {
-      Acting: 83,
-      Dance: 90,
-      Comedy: 78,
-      Design: 95,
-      Runway: 92,
-      Singing: 70
-    }
+    franchise: 'US'
   },
   {
     id: 'z4f7kX67S3fvEP42tp39',

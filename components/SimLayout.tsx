@@ -39,16 +39,14 @@ const SimLayout = (
       highs: 0,
       lows: 0,
       isEliminated: false,
-      stats: q.stats
-        ? { ...q.stats }
-        : {
-            Acting: Math.floor(Math.random() * 100) + 1,
-            Dance: Math.floor(Math.random() * 100) + 1,
-            Comedy: Math.floor(Math.random() * 100) + 1,
-            Design: Math.floor(Math.random() * 100) + 1,
-            Runway: Math.floor(Math.random() * 100) + 1,
-            Singing: Math.floor(Math.random() * 100) + 1,
-          }
+      stats: q.stats ?? {
+        Acting: Math.floor(Math.random() * 100) + 1,
+        Dance: Math.floor(Math.random() * 100) + 1,
+        Comedy: Math.floor(Math.random() * 100) + 1,
+        Design: Math.floor(Math.random() * 100) + 1,
+        Runway: Math.floor(Math.random() * 100) + 1,
+        Singing: Math.floor(Math.random() * 100) + 1,
+      }
     }));
   }, [queens]);
 

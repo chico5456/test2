@@ -54,39 +54,6 @@ type SeasonCastSearchOption = {
   queenCount: number;
 };
 
-const generateRandomStats = () => ({
-  Acting: Math.floor(Math.random() * 101),
-  Dance: Math.floor(Math.random() * 101),
-  Comedy: Math.floor(Math.random() * 101),
-  Design: Math.floor(Math.random() * 101),
-  Runway: Math.floor(Math.random() * 101),
-  Singing: Math.floor(Math.random() * 101),
-});
-
-const presetQueenStats = (() => {
-  const map = new Map<string, Record<string, number>>();
-  queens.forEach((queen) => {
-    const stats = (queen as any).stats as Record<string, number> | undefined;
-    if (stats) {
-      map.set(queen.id, { ...stats });
-    }
-  });
-  return map;
-})();
-
-const getInitialStatsForQueen = (queen: any) => {
-  if (queen?.stats) {
-    return { ...queen.stats };
-  }
-
-  const presetStats = presetQueenStats.get(queen.id);
-  if (presetStats) {
-    return { ...presetStats };
-  }
-
-  return generateRandomStats();
-};
-
 const Page = () => {
   const [queenCards, setQueenCards] = useState<typeof queens>([]);
   const [episodeCards, setEpisodeCards] = useState<typeof episodes>([]);
@@ -102,33 +69,14 @@ const Page = () => {
   const [isLoading, setIsLoading] = useState(true); // fix loading issues with the big red Xs
   const router = useRouter();
 
-
-  const seasonCastOptions = useMemo<SeasonCastSearchOption[]>(() => {
-    return seasons
-      .map((season) => {
-        const castQueens = queens.filter((queen) => {
-          const seasonTokens = queen.seasons
-            ?.split(",")
-            .map((token: string) => token.trim().toLowerCase()) || [];
-          return (
-            seasonTokens.includes(season.seasonNumber.toLowerCase()) &&
-            queen.franchise?.toLowerCase() === season.franchise.toLowerCase()
-          );
-        });
-
-        if (castQueens.length === 0) return null;
-
-        return {
-          id: `season-${season.franchise}-${season.seasonNumber}`,
-          franchise: season.franchise,
-          seasonNumber: season.seasonNumber,
-          queens: castQueens,
-          label: `${season.franchise.toUpperCase()} Season ${season.seasonNumber}`,
-          queenCount: castQueens.length,
-        };
-      })
-      .filter(Boolean) as SeasonCastSearchOption[];
-  }, []);
+  const generateRandomStats = () => ({
+    Acting: Math.floor(Math.random() * 101),
+    Dance: Math.floor(Math.random() * 101),
+    Comedy: Math.floor(Math.random() * 101),
+    Design: Math.floor(Math.random() * 101),
+    Runway: Math.floor(Math.random() * 101),
+    Singing: Math.floor(Math.random() * 101),
+  });
 
   const seasonCastOptions = useMemo<SeasonCastSearchOption[]>(() => {
     return seasons
@@ -211,12 +159,7 @@ const Page = () => {
 
     if (savedQueens) {
       parsedQueens = JSON.parse(savedQueens);
-      parsedQueens = parsedQueens
-        .map((queen: any) => ({
-          ...queen,
-          stats: getInitialStatsForQueen(queen),
-        }))
-        .sort((a: any, b: any) => a.name.localeCompare(b.name));
+      parsedQueens.sort((a: any, b: any) => a.name.localeCompare(b.name));
       setQueenCards(parsedQueens);
     }
 
@@ -579,7 +522,7 @@ const Page = () => {
                         ...prev,
                         {
                           ...queen,
-                          stats: getInitialStatsForQueen(queen),
+                          stats: generateRandomStats(),
                         },
                       ];
                     });
@@ -591,7 +534,7 @@ const Page = () => {
                         .filter((queen: any) => !existingIds.has(queen.id))
                         .map((queen: any) => ({
                           ...queen,
-                          stats: getInitialStatsForQueen(queen),
+                          stats: generateRandomStats(),
                         }));
                       const updated = [...prev, ...newQueens];
                       return updated.sort((a, b) => a.name.localeCompare(b.name));
