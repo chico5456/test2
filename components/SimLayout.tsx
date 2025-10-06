@@ -170,6 +170,8 @@ const SimLayout = (
             return placement?.placement === 'safe';
           case 'winner':
             return placement?.placement === 'win';
+          case 'top2':
+            return placement?.placement === 'top2';
           case 'high':
             return placement?.placement === 'high';
           case 'bottom':
@@ -238,6 +240,18 @@ const SimLayout = (
           : `${others.join(', ')}, and ${last} are declared winners!`;
       case 'high':
         return names.length === 1 ? `${names[0]} has placed high.` : `${others.join(', ')}, and ${last} have placed high.`;
+      case 'top2': {
+        const groupedNames = names.length === 1
+          ? names[0]
+          : `${others.join(', ')}${others.length ? ` and ${last}` : last}`;
+        const intro = names.length === 1
+          ? `${groupedNames} is in the Top Two and will lipsync for the win.`
+          : `${groupedNames} are the Top Two and will lipsync for the win.`;
+        if (lipsyncTitle && lipsyncArtist) {
+          return `${intro} They will now have to lipsync to ${lipsyncTitle} by ${lipsyncArtist}. Good luck and don't fuck it up!`;
+        }
+        return intro;
+      }
       case 'bottom':
         return names.length === 1 ? `${names[0]} has placed low.` : `${others.join(', ')}, and ${last} have placed low.`;
       case 'bottom2':
