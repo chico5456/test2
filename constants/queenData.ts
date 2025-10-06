@@ -2504,6 +2504,132 @@ export const queens = [
 
 export const episodes = [
   {
+    id: 'us12ep01',
+    title: "I'm That Bitch",
+    episodeNumber: 1,
+    type: 'premiere,musical,nonelim',
+    description: "Seven new queens write original verses and perform RuPaul's new track 'I'm That Bitch' in front of Nicki Minaj.",
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep02',
+    title: "You Don't Know Me",
+    episodeNumber: 2,
+    type: 'premiere,musical,nonelim',
+    description: "The remaining seven queens compose and perform verses to 'You Don't Know Me' as Robin Thicke guest judges.",
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep03',
+    title: "World's Worst",
+    episodeNumber: 3,
+    type: 'improv,comedy',
+    description: 'The queens star in an improv comedy competition inspired by the worst talent show acts imaginable.',
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep04',
+    title: 'The Ball Ball',
+    episodeNumber: 4,
+    type: 'ball,design',
+    description: 'A design-filled triple ball challenge tests the queens on sports, basketball wives, and balls to the wall eleganza.',
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep05',
+    title: "Gay's Anatomy",
+    episodeNumber: 5,
+    type: 'acting,comedy',
+    description: 'The queens perform in a parody medical drama that devolves into romantic chaos inside the Werk Room hospital.',
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep06',
+    title: 'Snatch Game',
+    episodeNumber: 6,
+    type: 'snatchGame,comedy,improv',
+    description: 'Pop culture impressions take center stage as the queens deliver their best celebrity impersonations in Snatch Game.',
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep07',
+    title: 'Madonna: The Unauthorized Rusical',
+    episodeNumber: 7,
+    type: 'musical,dancing,singing',
+    description: 'A full-on Rusical tribute to Madonna challenges the queens to sing, dance, and embody the Queen of Pop.',
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep08',
+    title: 'Droop',
+    episodeNumber: 8,
+    type: 'branding,commercial',
+    description: 'RuPaul tasks the queens with creating a commercial for the newest drag essential: the Droop lifestyle brand.',
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep09',
+    title: 'Choices 2020',
+    episodeNumber: 9,
+    type: 'improv,comedy',
+    description: 'The queens hit the debate stage to deliver platform comedy in a political town hall moderated by Jeff Goldblum and Rachel Bloom.',
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep10',
+    title: 'Superfan Makeover',
+    episodeNumber: 10,
+    type: 'makeover',
+    description: 'Dedicated Drag Race superfans receive sickening makeovers and join their queen idols for a twin runway.',
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep11',
+    title: 'One-Queen Show',
+    episodeNumber: 11,
+    type: 'comedy,improv',
+    description: 'Each queen produces a solo showstopper performance showcasing their charisma, uniqueness, nerve, and talent.',
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep12',
+    title: 'Viva Drag Vegas',
+    episodeNumber: 12,
+    type: 'acting,dance',
+    description: 'A show-stopping performance number inspired by RuPaul\'s Drag Race Live in Las Vegas closes out the competition stage.',
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep13',
+    title: 'Reunited',
+    episodeNumber: 13,
+    type: 'reunion',
+    description: 'The season 12 queens reconnect virtually to spill the tea and reflect on the season with RuPaul.',
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep14',
+    title: 'Grand Finale',
+    episodeNumber: 14,
+    type: 'finale',
+    description: "RuPaul crowns America's Next Drag Superstar after a remote finale and lip-sync showdown from home.",
+    season: '12',
+    franchise: 'US'
+  },
+  {
     id: 'EtQVuMqKSIH4wMfZ8BF2',
     title: 'Drag Con Panel Extravaganza',
     episodeNumber: 6,
@@ -4833,6 +4959,11 @@ export const seasons = [
   {
     id: 'txf82x1awXgwEZBcNCVl',
     seasonNumber: '11',
+    franchise: 'US',
+  },
+  {
+    id: 'txf82x1awXgwEZBcNCVm',
+    seasonNumber: '12',
     franchise: 'US',
   },
 ];
