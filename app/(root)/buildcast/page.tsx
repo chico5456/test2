@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Search from "@/components/Search";
 import { queens, episodes, seasons, lipsyncs } from "@/constants/queenData";
 import QueenCard from "@/components/QueenCard";
@@ -45,6 +45,15 @@ import {
 import { CSS } from "@dnd-kit/utilities";
 import Image from "next/image";
 
+type SeasonCastSearchOption = {
+  id: string;
+  franchise: string;
+  seasonNumber: string;
+  queens: any[];
+  label: string;
+  queenCount: number;
+};
+
 const Page = () => {
   const [queenCards, setQueenCards] = useState<typeof queens>([]);
   const [episodeCards, setEpisodeCards] = useState<typeof episodes>([]);
@@ -68,6 +77,33 @@ const Page = () => {
     Runway: Math.floor(Math.random() * 101),
     Singing: Math.floor(Math.random() * 101),
   });
+
+  const seasonCastOptions = useMemo<SeasonCastSearchOption[]>(() => {
+    return seasons
+      .map((season) => {
+        const castQueens = queens.filter((queen) => {
+          const seasonTokens = queen.seasons
+            ?.split(",")
+            .map((token: string) => token.trim().toLowerCase()) || [];
+          return (
+            seasonTokens.includes(season.seasonNumber.toLowerCase()) &&
+            queen.franchise?.toLowerCase() === season.franchise.toLowerCase()
+          );
+        });
+
+        if (castQueens.length === 0) return null;
+
+        return {
+          id: `season-${season.franchise}-${season.seasonNumber}`,
+          franchise: season.franchise,
+          seasonNumber: season.seasonNumber,
+          queens: castQueens,
+          label: `${season.franchise.toUpperCase()} Season ${season.seasonNumber}`,
+          queenCount: castQueens.length,
+        };
+      })
+      .filter(Boolean) as SeasonCastSearchOption[];
+  }, []);
 
   const handleSaveToLocalStorage = () => {
     localStorage.setItem("selectedQueens", JSON.stringify(queenCards));
@@ -461,6 +497,7 @@ const Page = () => {
                   entity={queens}
                   field="name"
                   type="queen"
+                  seasonCasts={seasonCastOptions}
                   onSelect={(queen) => {
                     setQueenCards((prev) => {
                       if (prev.some((q) => q.id === queen.id)) return prev;
@@ -471,6 +508,19 @@ const Page = () => {
                           stats: generateRandomStats(),
                         },
                       ];
+                    });
+                  }}
+                  onBatchSelect={(seasonQueens) => {
+                    setQueenCards((prev) => {
+                      const existingIds = new Set(prev.map((q) => q.id));
+                      const newQueens = (seasonQueens || [])
+                        .filter((queen: any) => !existingIds.has(queen.id))
+                        .map((queen: any) => ({
+                          ...queen,
+                          stats: generateRandomStats(),
+                        }));
+                      const updated = [...prev, ...newQueens];
+                      return updated.sort((a, b) => a.name.localeCompare(b.name));
                     });
                   }}
                 />

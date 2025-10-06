@@ -28,6 +28,7 @@ const placementValueToLabel: Record<number, string> = {
     7: "WINNER",
     6: "RUNNER-UP",
     5: "WIN",
+    4.5: "TOP2",
     4: "HIGH",
     3: "SAFE",
     2: "LOW",
@@ -60,6 +61,7 @@ const SeasonTrackRecordChart = ({ queens, episodes }: SeasonTrackRecordChartProp
             case "WINNER": return 7;
             case "RUNNER-UP": return 6;
             case "win": return 5;
+            case "top2": return 4.5;
             case "high": return 4;
             case "safe": return 3;
             case "low": return 2;
@@ -76,6 +78,7 @@ const SeasonTrackRecordChart = ({ queens, episodes }: SeasonTrackRecordChartProp
             case 7: return "WINNER";
             case 6: return "RUNNER-UP";
             case 5: return "WIN";
+            case 4.5: return "TOP2";
             case 4: return "HIGH";
             case 3: return "SAFE";
             case 2: return "LOW";
@@ -151,7 +154,7 @@ const SeasonTrackRecordChart = ({ queens, episodes }: SeasonTrackRecordChartProp
                     <YAxis
                         type="number"
                         domain={[0, 7]}
-                        ticks={[0, 1, 2, 3, 4, 5, 6, 7]}
+                        ticks={[0, 1, 2, 3, 4, 4.5, 5, 6, 7]}
                         tickFormatter={valueToLabel}
                     />
                     <Tooltip />
