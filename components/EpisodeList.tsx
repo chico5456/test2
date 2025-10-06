@@ -61,6 +61,13 @@ const EpisodeList = ({
         });
 
         const isFinale = ep.type?.toLowerCase().includes("finale");
+        const episodeTypeKeys = ep.type
+          ?.toLowerCase()
+          .split(",")
+          .map((key: string) => key.trim()) || [];
+        const isSplitPremiereNonElim = episodeTypeKeys.some(
+          (key: string) => key.replace(/\s+/g, "") === "nonelim"
+        );
 
         return (
           <div
@@ -111,30 +118,42 @@ const EpisodeList = ({
                   >
                     High
                   </button>
+                  {isSplitPremiereNonElim && (
+                    <button
+                      className="px-3 py-1 text-xs rounded-full bg-indigo-200 hover:bg-indigo-300 transition"
+                      onClick={(e) => handleEventClick(e, ep.episodeNumber, "top2", ep.nonElimination || "")}
+                    >
+                      Top 2
+                    </button>
+                  )}
                   <button
                     className="px-3 py-1 text-xs rounded-full bg-blue-200 hover:bg-blue-400 transition"
                     onClick={(e) => handleEventClick(e, ep.episodeNumber, "winner", ep.nonElimination || "")}
                   >
                     Winner
                   </button>
-                  <button
-                    className="px-3 py-1 text-xs rounded-full bg-red-200 hover:bg-red-300 transition"
-                    onClick={(e) => handleEventClick(e, ep.episodeNumber, "bottom", ep.nonElimination || "")}
-                  >
-                    Bottom
-                  </button>
-                  <button
-                    className="px-3 py-1 text-xs rounded-full bg-red-300 hover:bg-red-400 transition"
-                    onClick={(e) => handleEventClick(e, ep.episodeNumber, "bottom2", ep.nonElimination || "")}
-                  >
-                    Bottom 2
-                  </button>
-                  <button
-                    className="px-3 py-1 text-xs rounded-full bg-red-600 hover:bg-red-800 transition text-white"
-                    onClick={(e) => handleEventClick(e, ep.episodeNumber, "eliminated", ep.nonElimination || "")}
-                  >
-                    Elimination
-                  </button>
+                  {!isSplitPremiereNonElim && (
+                    <>
+                      <button
+                        className="px-3 py-1 text-xs rounded-full bg-red-200 hover:bg-red-300 transition"
+                        onClick={(e) => handleEventClick(e, ep.episodeNumber, "bottom", ep.nonElimination || "")}
+                      >
+                        Bottom
+                      </button>
+                      <button
+                        className="px-3 py-1 text-xs rounded-full bg-red-300 hover:bg-red-400 transition"
+                        onClick={(e) => handleEventClick(e, ep.episodeNumber, "bottom2", ep.nonElimination || "")}
+                      >
+                        Bottom 2
+                      </button>
+                      <button
+                        className="px-3 py-1 text-xs rounded-full bg-red-600 hover:bg-red-800 transition text-white"
+                        onClick={(e) => handleEventClick(e, ep.episodeNumber, "eliminated", ep.nonElimination || "")}
+                      >
+                        Elimination
+                      </button>
+                    </>
+                  )}
                 </>
               )}
             </div>

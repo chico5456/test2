@@ -862,7 +862,15 @@ export const queens = [
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/0/06/VanessaVanjieMateoS10CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831163920',
     seasons: '10,11',
     name: 'Vanessa Vanjie Mateo',
-    franchise: 'US'
+    franchise: 'US',
+    stats: {
+      Acting: 72,
+      Dance: 88,
+      Comedy: 74,
+      Design: 65,
+      Runway: 80,
+      Singing: 68
+    }
   },
   {
     id: 't4C78lcMTQjKW0Igtxmw',
@@ -883,98 +891,210 @@ export const queens = [
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/3/3a/A%27keriaCDavenportS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831152524',
     seasons: '11,AS6',
     name: "A'keria C. Davenport",
-    franchise: 'US'
+    franchise: 'US',
+    stats: {
+      Acting: 78,
+      Dance: 75,
+      Comedy: 70,
+      Design: 80,
+      Runway: 88,
+      Singing: 60
+    }
   },
   {
     id: 'zIAD22W56nMvEP42tp39',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/4/42/ArielVersaceS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831152449',
     seasons: '11',
     name: "Ariel Versace",
-    franchise: 'US'
+    franchise: 'US',
+    stats: {
+      Acting: 60,
+      Dance: 65,
+      Comedy: 55,
+      Design: 72,
+      Runway: 85,
+      Singing: 58
+    }
   },
   {
     id: 'zIAD22WTFnMvEP4nBp39',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/7/75/BrookeLynnHytesS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831152558',
     seasons: '11',
     name: "Brooke Lynn Hytes",
-    franchise: 'US'
+    franchise: 'US',
+    stats: {
+      Acting: 70,
+      Dance: 95,
+      Comedy: 68,
+      Design: 74,
+      Runway: 93,
+      Singing: 62
+    }
   },
   {
     id: 'zISE22WTFnMvEP42tp39',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/f/f1/HoneyDavenportS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831152652',
     seasons: '11',
     name: "Honey Davenport",
-    franchise: 'US'
+    franchise: 'US',
+    stats: {
+      Acting: 65,
+      Dance: 78,
+      Comedy: 60,
+      Design: 70,
+      Runway: 82,
+      Singing: 85
+    }
   },
   {
     id: 'zISERRRTFnMvEP42tp39',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/8/8c/KahannaMontreseS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831152729',
     seasons: '11,AS8',
     name: "Kahanna Montrese",
-    franchise: 'US'
+    franchise: 'US',
+    stats: {
+      Acting: 55,
+      Dance: 88,
+      Comedy: 52,
+      Design: 60,
+      Runway: 80,
+      Singing: 58
+    }
   },
   {
     id: 'zISE22WTFnMvEP12D539',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/8/8c/MercedesImanDiamondS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831152824',
     seasons: '11',
     name: "Mercedes Iman Diamond",
-    franchise: 'US'
+    franchise: 'US',
+    stats: {
+      Acting: 52,
+      Dance: 64,
+      Comedy: 50,
+      Design: 58,
+      Runway: 72,
+      Singing: 55
+    }
   },
   {
     id: 'zISE4k0oFnMvEP42tp39',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/9/97/NinaWestS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831152853',
     seasons: '11,AS9',
     name: "Nina West",
-    franchise: 'US'
+    franchise: 'US',
+    stats: {
+      Acting: 88,
+      Dance: 62,
+      Comedy: 90,
+      Design: 75,
+      Runway: 68,
+      Singing: 70
+    }
   },
   {
     id: 'zISE22444nMvEP42tp39',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/4/44/PlastiqueTiaraS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210907152402',
     seasons: '11,AS9',
     name: "Plastique Tiara",
-    franchise: 'US'
+    franchise: 'US',
+    stats: {
+      Acting: 66,
+      Dance: 74,
+      Comedy: 58,
+      Design: 92,
+      Runway: 95,
+      Singing: 64
+    }
   },
   {
     id: '4hSS32444nMvEP42tp39',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/f/f8/Ra%27JahO%27HaraS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831153040',
     seasons: '11,AS6,CvtW1',
     name: "Ra'Jah O'Hara",
-    franchise: 'US'
+    franchise: 'US',
+    stats: {
+      Acting: 70,
+      Dance: 84,
+      Comedy: 68,
+      Design: 88,
+      Runway: 86,
+      Singing: 66
+    }
   },
   {
     id: 'zISE22444nMvEP000OO9',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/3/3b/ScarletEnvyS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831153122',
     seasons: '11,AS6,UKvtW2',
     name: "Scarlet Envy",
-    franchise: 'US'
+    franchise: 'US',
+    stats: {
+      Acting: 82,
+      Dance: 60,
+      Comedy: 72,
+      Design: 76,
+      Runway: 89,
+      Singing: 63
+    }
   },
   {
     id: 'zI3f35444nMvEP42tp39',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/d/d5/ShugaCainS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831153221',
     seasons: '11',
     name: "Shuga Cain",
-    franchise: 'US'
+    franchise: 'US',
+    stats: {
+      Acting: 75,
+      Dance: 70,
+      Comedy: 80,
+      Design: 73,
+      Runway: 78,
+      Singing: 88
+    }
   },
   {
     id: 'zIIIkl444nMvEP42tp39',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/5/5e/SilkyNutmegGanacheS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831153343',
     seasons: '11,AS6,CvtW1',
     name: "Silky Nutmeg Ganache",
-    franchise: 'US'
+    franchise: 'US',
+    stats: {
+      Acting: 85,
+      Dance: 58,
+      Comedy: 88,
+      Design: 68,
+      Runway: 70,
+      Singing: 82
+    }
   },
   {
     id: 'zI3f35444nMvEP42tp40',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/0/02/SojuS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831153424',
     seasons: '11',
     name: "Soju",
-    franchise: 'US'
+    franchise: 'US',
+    stats: {
+      Acting: 45,
+      Dance: 42,
+      Comedy: 48,
+      Design: 50,
+      Runway: 55,
+      Singing: 52
+    }
   },
   {
     id: 'zI3f3f67S3fvEP42tp39',
     url: 'https://static.wikia.nocookie.net/logosrupaulsdragrace/images/3/3c/YvieOddlyS11CastMug.jpg/revision/latest/scale-to-width-down/105?cb=20210831153546',
     seasons: '11,AW1',
     name: "Yvie Oddly",
-    franchise: 'US'
+    franchise: 'US',
+    stats: {
+      Acting: 83,
+      Dance: 90,
+      Comedy: 78,
+      Design: 95,
+      Runway: 92,
+      Singing: 70
+    }
   },
   {
     id: 'z4f7kX67S3fvEP42tp39',
@@ -2503,6 +2623,132 @@ export const queens = [
 );
 
 export const episodes = [
+  {
+    id: 'us12ep01',
+    title: "I'm That Bitch",
+    episodeNumber: 1,
+    type: 'premiere,musical,nonelim',
+    description: "Seven new queens write original verses and perform RuPaul's new track 'I'm That Bitch' in front of Nicki Minaj.",
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep02',
+    title: "You Don't Know Me",
+    episodeNumber: 2,
+    type: 'premiere,musical,nonelim',
+    description: "The remaining seven queens compose and perform verses to 'You Don't Know Me' as Robin Thicke guest judges.",
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep03',
+    title: "World's Worst",
+    episodeNumber: 3,
+    type: 'improv,comedy',
+    description: 'The queens star in an improv comedy competition inspired by the worst talent show acts imaginable.',
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep04',
+    title: 'The Ball Ball',
+    episodeNumber: 4,
+    type: 'ball,design',
+    description: 'A design-filled triple ball challenge tests the queens on sports, basketball wives, and balls to the wall eleganza.',
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep05',
+    title: "Gay's Anatomy",
+    episodeNumber: 5,
+    type: 'acting,comedy',
+    description: 'The queens perform in a parody medical drama that devolves into romantic chaos inside the Werk Room hospital.',
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep06',
+    title: 'Snatch Game',
+    episodeNumber: 6,
+    type: 'snatchGame,comedy,improv',
+    description: 'Pop culture impressions take center stage as the queens deliver their best celebrity impersonations in Snatch Game.',
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep07',
+    title: 'Madonna: The Unauthorized Rusical',
+    episodeNumber: 7,
+    type: 'musical,dancing,singing',
+    description: 'A full-on Rusical tribute to Madonna challenges the queens to sing, dance, and embody the Queen of Pop.',
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep08',
+    title: 'Droop',
+    episodeNumber: 8,
+    type: 'branding,commercial',
+    description: 'RuPaul tasks the queens with creating a commercial for the newest drag essential: the Droop lifestyle brand.',
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep09',
+    title: 'Choices 2020',
+    episodeNumber: 9,
+    type: 'improv,comedy',
+    description: 'The queens hit the debate stage to deliver platform comedy in a political town hall moderated by Jeff Goldblum and Rachel Bloom.',
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep10',
+    title: 'Superfan Makeover',
+    episodeNumber: 10,
+    type: 'makeover',
+    description: 'Dedicated Drag Race superfans receive sickening makeovers and join their queen idols for a twin runway.',
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep11',
+    title: 'One-Queen Show',
+    episodeNumber: 11,
+    type: 'comedy,improv',
+    description: 'Each queen produces a solo showstopper performance showcasing their charisma, uniqueness, nerve, and talent.',
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep12',
+    title: 'Viva Drag Vegas',
+    episodeNumber: 12,
+    type: 'acting,dance',
+    description: 'A show-stopping performance number inspired by RuPaul\'s Drag Race Live in Las Vegas closes out the competition stage.',
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep13',
+    title: 'Reunited',
+    episodeNumber: 13,
+    type: 'reunion',
+    description: 'The season 12 queens reconnect virtually to spill the tea and reflect on the season with RuPaul.',
+    season: '12',
+    franchise: 'US'
+  },
+  {
+    id: 'us12ep14',
+    title: 'Grand Finale',
+    episodeNumber: 14,
+    type: 'finale',
+    description: "RuPaul crowns America's Next Drag Superstar after a remote finale and lip-sync showdown from home.",
+    season: '12',
+    franchise: 'US'
+  },
   {
     id: 'EtQVuMqKSIH4wMfZ8BF2',
     title: 'Drag Con Panel Extravaganza',
@@ -4833,6 +5079,11 @@ export const seasons = [
   {
     id: 'txf82x1awXgwEZBcNCVl',
     seasonNumber: '11',
+    franchise: 'US',
+  },
+  {
+    id: 'txf82x1awXgwEZBcNCVm',
+    seasonNumber: '12',
     franchise: 'US',
   },
 ];

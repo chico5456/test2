@@ -39,14 +39,16 @@ const SimLayout = (
       highs: 0,
       lows: 0,
       isEliminated: false,
-      stats: q.stats ?? {
-        Acting: Math.floor(Math.random() * 100) + 1,
-        Dance: Math.floor(Math.random() * 100) + 1,
-        Comedy: Math.floor(Math.random() * 100) + 1,
-        Design: Math.floor(Math.random() * 100) + 1,
-        Runway: Math.floor(Math.random() * 100) + 1,
-        Singing: Math.floor(Math.random() * 100) + 1,
-      }
+      stats: q.stats
+        ? { ...q.stats }
+        : {
+            Acting: Math.floor(Math.random() * 100) + 1,
+            Dance: Math.floor(Math.random() * 100) + 1,
+            Comedy: Math.floor(Math.random() * 100) + 1,
+            Design: Math.floor(Math.random() * 100) + 1,
+            Runway: Math.floor(Math.random() * 100) + 1,
+            Singing: Math.floor(Math.random() * 100) + 1,
+          }
     }));
   }, [queens]);
 
@@ -170,6 +172,8 @@ const SimLayout = (
             return placement?.placement === 'safe';
           case 'winner':
             return placement?.placement === 'win';
+          case 'top2':
+            return placement?.placement === 'top2';
           case 'high':
             return placement?.placement === 'high';
           case 'bottom':
@@ -205,23 +209,40 @@ const SimLayout = (
       }
     };
 
-    let lipsyncTitle = '', lipsyncArtist = '';
-    if (lipsyncs[episodeNumber - 2] && lipsyncs[episodeNumber - 2]['lipsync'].season == 9) {
-      lipsyncTitle = lipsyncs[episodeNumber - 2]['lipsync'].title;
-      lipsyncArtist = lipsyncs[episodeNumber - 2]['lipsync'].artist;
-    }
-    else if (lipsyncs[episodeNumber - 1] && lipsyncs[episodeNumber - 1]['lipsync'].season != 9) {
-      lipsyncTitle = lipsyncs[episodeNumber - 1]['lipsync'].title;
-      lipsyncArtist = lipsyncs[episodeNumber - 1]['lipsync'].artist;
-    }
-    else if (episodeNumber == 1 && lipsyncs[episodeNumber]['lipsync'].season == 3) { // temp fix for season 3
-      lipsyncTitle = lipsyncs[episodeNumber - 1]['lipsync'].title;
-      lipsyncArtist = lipsyncs[episodeNumber - 1]['lipsync'].artist;
-    }
-    else if (lipsyncs[episodeNumber - 2] && lipsyncs[episodeNumber - 2]['lipsync'].season === 3) {
-      lipsyncTitle = lipsyncs[episodeNumber - 1]['lipsync'].title;
-      lipsyncArtist = lipsyncs[episodeNumber - 1]['lipsync'].artist;
-    }
+    const getLipsyncDetails = (epNumber: number) => {
+      const safeLipsyncAt = (index: number) => {
+        if (index < 0 || index >= lipsyncs.length) return null;
+        const entry = lipsyncs[index];
+        if (!entry || !entry['lipsync']) return null;
+        return entry['lipsync'];
+      };
+
+      const minusTwo = safeLipsyncAt(epNumber - 2);
+      const minusOne = safeLipsyncAt(epNumber - 1);
+      const current = safeLipsyncAt(epNumber);
+
+      if (minusTwo?.season === 9) {
+        return minusTwo;
+      }
+
+      if (minusOne && minusOne.season !== 9) {
+        return minusOne;
+      }
+
+      if (epNumber === 1 && current?.season === 3) {
+        return current;
+      }
+
+      if (minusTwo?.season === 3) {
+        return safeLipsyncAt(epNumber - 1);
+      }
+
+      return null;
+    };
+
+    const lipsyncDetails = getLipsyncDetails(episodeNumber);
+    const lipsyncTitle = lipsyncDetails?.title ?? '';
+    const lipsyncArtist = lipsyncDetails?.artist ?? '';
 
     switch (event) {
       case 'announceSafe':
@@ -238,6 +259,18 @@ const SimLayout = (
           : `${others.join(', ')}, and ${last} are declared winners!`;
       case 'high':
         return names.length === 1 ? `${names[0]} has placed high.` : `${others.join(', ')}, and ${last} have placed high.`;
+      case 'top2': {
+        const groupedNames = names.length === 1
+          ? names[0]
+          : `${others.join(', ')}${others.length ? ` and ${last}` : last}`;
+        const intro = names.length === 1
+          ? `${groupedNames} is in the Top Two and will lipsync for the win.`
+          : `${groupedNames} are the Top Two and will lipsync for the win.`;
+        if (lipsyncTitle && lipsyncArtist) {
+          return `${intro} They will now have to lipsync to ${lipsyncTitle} by ${lipsyncArtist}. Good luck and don't fuck it up!`;
+        }
+        return intro;
+      }
       case 'bottom':
         return names.length === 1 ? `${names[0]} has placed low.` : `${others.join(', ')}, and ${last} have placed low.`;
       case 'bottom2':
